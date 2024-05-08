@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+    <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+    <!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+    <UseMaui>true</UseMaui>
+    <SkipValidateMauiImplicitPackageReferences>true</SkipValidateMauiImplicitPackageReferences>
+    <SingleProject>true</SingleProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+    <TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <Version>4.9.10-pre</Version>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <RepositoryUrl>https://github.com/xtuzy/Veldrid.Maui.Controls</RepositoryUrl>
+    <Description>Veldrid of maui</Description>
+    <Copyright>yangzhou</Copyright>
+    <PackageProjectUrl>https://github.com/xtuzy/Veldrid.Maui.Controls/edit/main/README.md</PackageProjectUrl>
+  </PropertyGroup>
+   <ItemGroup Condition="$(TargetFramework.Contains('ios')) == true">
+     <ProjectReference Include="..\MetelMono\MetelMono.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.Contains('mac')) == true">
+     <ProjectReference Include="..\MetelMac\MetelMac.csproj" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
+    <CreatePackage>false</CreatePackage>
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework.Contains('ios')) == false and $(TargetFramework.Contains('mac')) == false">
+    <Compile Remove="Platform/iOSMac/**"></Compile>
+    <None Include="Platform/iOSMac/**"></None>
+  </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.Contains('android')) == false">
+    <Compile Remove="Platform/Android/**"></Compile>
+    <None Include="Platform/Android/**"></None>
+  </ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.Contains('windows')) == false">
+    <Compile Remove="Platform/Windows/**"></Compile>
+    <None Include="Platform/Windows/**"></None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="NativeLibraryLoader" Version="1.0.13" />
+    <PackageReference Include="Vk" Version="1.0.25" />
+    <PackageReference Include="Veldrid" Version="4.9.0" />
+    <PackageReference Include="Veldrid.Utilities" Version="4.9.0" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.4" Condition="$(TargetFramework.Contains('windows')) == true or $(TargetFramework) == 'net8.0' or $(TargetFramework.Contains('ios')) == true or $(TargetFramework.Contains('mac')) == true" />
+  </ItemGroup>
+</Project>

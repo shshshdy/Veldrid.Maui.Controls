@@ -1,0 +1,6 @@
+framework module metal_mono_workaround {
+  umbrella header "metal_mono_workaround.h"
+  export *
+
+  module * { export * }
+}
