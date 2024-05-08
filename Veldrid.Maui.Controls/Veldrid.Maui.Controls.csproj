@@ -29,10 +29,10 @@
     <PackageProjectUrl>https://github.com/xtuzy/Veldrid.Maui.Controls/edit/main/README.md</PackageProjectUrl>
   </PropertyGroup>
    <ItemGroup Condition="$(TargetFramework.Contains('ios')) == true">
-     <ProjectReference Include="..\MetelMono\MetelMono.csproj" />
+     <ProjectReference Include="..\MetalMono\MetalMono.csproj" />
   </ItemGroup>
   <ItemGroup Condition="$(TargetFramework.Contains('mac')) == true">
-     <ProjectReference Include="..\MetelMac\MetelMac.csproj" />
+     <ProjectReference Include="..\MetalMac\MetalMac.csproj" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
     <CreatePackage>false</CreatePackage>
