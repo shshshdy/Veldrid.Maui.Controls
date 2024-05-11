@@ -11,7 +11,10 @@
     <ObjcBindingCoreSource Include="StructsAndEnums.cs" />
   </ItemGroup>
   <ItemGroup>
-    <NativeReference Include="..\metal-mono-workaround.xcframework\ios-arm64\metal_mono_workaround.framework">
+    <NativeReference Include="..\metal-mono-workaround.xcframework\ios-x86_64-simulator\metal_mono_workaround.framework">
+      <Kind>Framework</Kind>
+    </NativeReference>
+    <NativeReference Include="..\veldrid-spirv.xcframework\ios-x86_64-simulator\veldrid-spirv.framework">
       <Kind>Framework</Kind>
     </NativeReference>
   </ItemGroup>
